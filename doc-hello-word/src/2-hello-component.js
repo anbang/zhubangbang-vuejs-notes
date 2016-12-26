@@ -1,16 +1,17 @@
 let pageData={
-    groceryList: [
-        { text: 'Vegetables' },
-        { text: 'Cheese' },
-        { text: 'Whatever else humans are supposed to eat' }
+    bookList:[
+        {name:"js book"},
+        {name:"css book"},
+        {name:"html book"},
+        {name:"node book"},
     ]
 };
 
 let pageUtility={};
 
-Vue.component('todo-item', {
-    props: ['todo'],
-    template: '<li>{{ todo.text }}</li>'
+Vue.component("test",{
+    props:['some'],
+    template:'<li>{{some.name}}</li>'
 });
 
 let vue=new Vue({
