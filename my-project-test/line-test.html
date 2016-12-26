@@ -7,12 +7,20 @@
 <body>
 <!--View层-->
 <div id="App">
-  <p>{{message}}</p>
-  <input type="text" v-model="message">
-  <p><a href="https://www.baidu.com/" v-on:click="doSomething">click me</a></p>
-  <p><a href="https://www.baidu.com/" v-on:click="sayHello('Hello ')">Hello</a></p>
-  <p><button v-on:click="sayHello('Hi ')">Hi</button></p>
+  <!--引入导航模块-->
+  <app-nav></app-nav>
+
+  <app-view>
+
+    <!--引入边栏-->
+    <app-sidebar></app-sidebar>
+
+    <!--引入内容区-->
+    <app-content></app-content>
+
+  </app-view>
 </div>
+
 </body>
 <script src="../lib/vue.js"></script>
 <script src="./src/line-text.js"></script>

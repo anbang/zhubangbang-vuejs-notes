@@ -10,7 +10,7 @@
 <body>
 <!--View层-->
 <div id="App">
-    <p>您好 {{user_name}} !</p>
+    <p>{{ message | uppercase  }} {{user_name }} !</p>
     <div class="user-gender">
         <p v-show="user_gender.indexOf('woman')>-1">女</p>
         <p v-else>男</p>
@@ -48,11 +48,10 @@
         <br>
         修改昵称：<input type="text" v-model="user_name">
     </div>
-
     <p><a href="https://www.baidu.com/" @click="doSomething">点击我打印输入框内容！</a></p>
     <p><button @click="sayHello('By Input')">点我通过输入框 打印欢迎语</button></p>
-
     <p><a href="https://www.baidu.com/" @click="sayHello('Error ')">单击默认会跳转</a></p>
+    <p><a href="https://www.baidu.com/" @click="sayHello('mothods is ok',$event)">单击不跳转,mothods内方法处理</a></p>
     <p><a href="https://www.baidu.com/" @click.prevent="sayHello('.prevent ')">阻止默认行为</a></p>
     <p><a href="https://www.baidu.com/" @click.stop="sayHello('.stop ')">阻止冒泡</a></p>
     <p><a href="https://www.baidu.com/" @click.stop.prevent="sayHello('.stop.prevent ')">阻止默认行为&冒泡</a></p>

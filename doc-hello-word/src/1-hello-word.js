@@ -21,7 +21,8 @@ let pageUtility={
         e.preventDefault();
         console.log(this.user_name,this);
     },
-    sayHello:function (arg) {
+    sayHello:function (arg,e) {
+        e?e.preventDefault():void(0);
         console.log( this.message + this.user_name + " ("+ arg + ")",this);
     }
 };

@@ -56,6 +56,9 @@ vue.js分为最基本的2种用法，
 
 - {{message}} 		以文本的方式输出message
 	- 缺点和angular 一样,会有FOUC现象，（在加载的一瞬间会显示这个表达式，非常丑；不知道的还以为乱码了）
+	- 过滤器 	{{ message | uppercase  }}  
+		- 后面的uppercase就是对前面的messsage的修饰；
+		- 在angular里，数据格式等展现都是用过滤器处理，不能直接修改源数据，angular还涉及脏值检查等；vue中应该也是用过滤器修饰数据，不能动源数据；[个人猜的，还没有具体确定]
 - {{{message}}}		以HTML的方式输出message
 	- 注意{{{}}这种的用法是错误的，比如左右一样的数；亲测webstorm2016三个大括号不能正常不全；
 
@@ -72,14 +75,14 @@ vue.js分为最基本的2种用法，
 	  <input type="text" v-model="message">
 	</div>
 
-上面的v-model 就是指令
+上面的v-model 就是一种Viem层比较重要的指令;
 
 
 ### 指令(指令是属于View层的)
 
 指令是直接写在HTML元素上的；
 
-指令分为页面渲染指令和事件绑定指令；
+指令分为 "页面渲染指令" 和 "事件绑定指令"；
 
 ##### 页面渲染指令
 - v-text		文本输出指令
@@ -108,15 +111,75 @@ vue.js分为最基本的2种用法，
 		- 例如  v-bind:class="expression ? trueValue : falseValue"
 	- 缩写为冒号 
 		- 例如  :class="expression ? trueValue : falseValue"
+	- 修饰符
+		- .sync .once .camel TODO 待续
 
 我们也可以开发一些自定义的指令
 
 ##### 事件绑定指令
-- v-on:argument		监听事件指令
-	- v-on:click="doSomething"
-	- v-on:click="sayHello('Hi ')"
+
+v-on:argument		监听事件指令
+
+- v-on:click="doSomething"
+- v-on:click="sayHello('Hi ')"
+- 修饰符
+	- .stop		阻止冒泡 		调用event.stopPropagation()
+	- .prevent	阻止默认行为		调用event.preventDefault()		常用的
+	- .capture.self				事件监听器相关的修饰符；	TODO 待续
+	- .{keyCode | keyAlias} 		只在指定按键上触发回调;	TODO 待续
 
 其中v-bind和v-on可以缩写为【 : 】【 @ 】
 
+##### 动态修改双向值
 
+v-model		只能用于表单 input select textarea
 
+值随着表单类型不同而不同；用在表单控件上创建双向绑定；
+
+![](http://i.imgur.com/9QbTOxN.png)
+
+[DEMO预览](./1-hello-word.html)
+
+# VUE的组件系统概念；
+
+组件有点类似模块的概念，每个模块里封装好了一个功能，用到的地方直接引用下这个组件就可以了；（类似模块手机、绿色软件的概念，拿来就能用，删除就卸载）
+
+每个模块里都会有 HTML JS CSS；这样引入的时候只需要引入一个模块，不用HTML/CSS/JS分别引入了；
+
+![](http://cn.vuejs.org/images/components.png)
+
+官方给出了这个图，根据HTML文档结构来构建模块；对应的如下；
+
+	<!--View层-->
+	<div id="App">
+
+	  <!--引入导航模块-->
+	  <app-nav></app-nav>
+	
+	  <app-view>
+	
+	    <!--引入边栏-->
+	    <app-sidebar></app-sidebar>
+	
+	    <!--引入内容区-->
+	    <app-content></app-content>
+	
+	  </app-view>
+	</div>
+
+这样就可以了（如果app-sidebar不符合我们的业务，可以再封一个 app-sidebar-two 之类的，引入即可；）
+
+这样做有一个弊端，就是HTML/CSS/JS都偶尔在一起了；但是从总体来看，不同模块直接并不耦合；react和vue，这么做是为了屈从大的组件化思想而做出的取舍；如果是基于webpack建立的vue项目，模块的文件是app-nav.vue  这种的文件；
+
+其中.vue包括三个部分
+
+- template标签	放HTML文件
+- script标签		放JS文件
+- style标签		放CSS文件
+
+三个标签合组了一个模块；使用的时候，只需引入一个模块；
+
+##### 外部资源导入的方式；
+
+这里的组件化；
+Component
