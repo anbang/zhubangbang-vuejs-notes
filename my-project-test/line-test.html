@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JS引用文件</title>
+</head>
+<body>
+<!--View层-->
+<div id="App">
+  <p>{{message}}</p>
+  <input type="text" v-model="message">
+  <p><a href="https://www.baidu.com/" v-on:click="doSomething">click me</a></p>
+  <p><a href="https://www.baidu.com/" v-on:click="sayHello('Hello ')">Hello</a></p>
+  <p><button v-on:click="sayHello('Hi ')">Hi</button></p>
+</div>
+</body>
+<script src="../lib/vue.js"></script>
+<script src="./src/line-text.js"></script>
+</html>

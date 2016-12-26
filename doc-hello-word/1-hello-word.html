@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>hello word</title>
+    <style>
+        .light{color: brown;font-weight: 800;}
+    </style>
+</head>
+<body>
+<!--View层-->
+<div id="App">
+    <p>您好 {{user_name}} !</p>
+    <div class="user-gender">
+        <p v-show="user_gender.indexOf('woman')>-1">女</p>
+        <p v-else>男</p>
+    </div>
+    <div class="user-whois">
+        <p v-if="user_whois">您设置了Whois隐私保护！</p>
+        <p v-if="!user_medal">因为您不是VIP，所以我把你的信息输出来了！</p>
+    </div>
+    <div class="user-age">
+        <p v-if="user_age <18 ">未满18周岁禁止入内，您才{{user_age}}岁啊！滚出去！</p>
+        <p v-else>您已经是成年人了，{{user_age}}岁的小伙子！这里有您更精彩…</p>
+    </div>
+    <div class="comment">
+        <span>您上次留言：</span>
+        <span v-text="comment"></span>
+        <div>
+            <span>浏览器会渲染为:</span>
+            <span v-html="comment"></span>
+            <span v-if="comment.indexOf('党')>0">（您的留言中含有"党"这个字，请删除）</span>
+            <p>{{{comment}}}（用三个大括号输出的）</p>
+        </div>
+    </div>
+    <div class="user_friends">
+        <h4>下面是您的朋友列表</h4>
+        <span>未满18岁的朋友，会被高亮</span>
+        <ul >
+            <li v-for="item in friends" :class="item.age<18?'light':''">
+                <span v-text="item.name"></span>
+                <span v-text="item.age"></span>岁
+                <span v-text="item.gender"></span>
+            </li>
+        </ul>
+    </div>
+    <div class="user-write-area">
+        <br>
+        修改昵称：<input type="text" v-model="user_name">
+    </div>
+
+    <p><a href="https://www.baidu.com/" @click="doSomething">点击我打印输入框内容！</a></p>
+    <p><button @click="sayHello('By Input')">点我通过输入框 打印欢迎语</button></p>
+
+    <p><a href="https://www.baidu.com/" @click="sayHello('Error ')">单击默认会跳转</a></p>
+    <p><a href="https://www.baidu.com/" @click.prevent="sayHello('.prevent ')">阻止默认行为</a></p>
+    <p><a href="https://www.baidu.com/" @click.stop="sayHello('.stop ')">阻止冒泡</a></p>
+    <p><a href="https://www.baidu.com/" @click.stop.prevent="sayHello('.stop.prevent ')">阻止默认行为&冒泡</a></p>
+</div>
+</body>
+<!--<script src="../lib/vue.js"></script>-->
+<script src="http://www.jsdaxue.com/ssl/lib/vue/vue.js"></script>
+<script src="./src/1-hello-word.js"></script>
+</html>
