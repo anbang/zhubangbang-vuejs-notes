@@ -6,6 +6,7 @@
 </head>
 <body>
 <div id="App">
+    <p data-class="{{message}}">{{message}}</p>
     <ol>
         <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
     </ol>

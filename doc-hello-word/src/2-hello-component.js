@@ -1,4 +1,5 @@
 let pageData={
+    message:"broszhu",
     groceryList: [
         { text: 'Vegetables' },
         { text: 'Cheese' },
@@ -18,3 +19,12 @@ let vue=new Vue({
     data:pageData,
     methods:pageUtility
 });
+
+
+let testData={
+    message:"broszhu"
+};
+let testVue=new Vue({
+    data:testData
+});
+console.log(testVue.message===testData.message);

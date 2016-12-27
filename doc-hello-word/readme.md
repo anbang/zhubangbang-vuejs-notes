@@ -39,6 +39,8 @@ vue.js分为最基本的2种用法，
 	  })
 	</script>
 
+VUE有点类似angular的 model view viewModel 这种的MVVM模式
+
 # 使用Vue，就是定义MVVM各个组成部分的；
 
 - 一、定义View  		- HTML 文件
@@ -50,6 +52,67 @@ vue.js分为最基本的2种用法，
 		- data:		指向Model
 		- methods	事件的处理方法
 
+##### 适合我自己的vue学习方法；
+
+每个vue.js应用都是构造函数Vue的一个实例；学习的时候，把Vue作为一个构造函数即可；
+
+	let vueTemp=new Vue();
+	console.dir(vueTemp);//vueTemp这个实例
+	console.dir(vueTemp.__proto__);//Vue这个构造函数
+	console.dir(vueTemp.__proto__.__proto__);//Object基类；
+
+
+输出后发现Vue是直接定义在Object基类上的一个函数；
+
+下图是Vue实例 vueTemp 的属性和方法
+
+![](http://i.imgur.com/N5OswG6.png)
+
+下图是Vue这个构造函数的属性和方法
+
+![](http://i.imgur.com/OTZzToL.png)
+
+验证我的想法；
+
+我要创建一个子类来继承并且扩展Vue的方法和属性，作为Vue的超集；
+
+	Vue.prototype.getVuePro = function () {
+	    console.log("Vue.prototype");
+	};
+	function ChildrenObj() {
+	    this.flagB="flagB";
+	    let temp = new Vue;
+	    for (let key in temp) {
+	        this[key] = temp[key];
+	    }
+	    temp = null;
+	}
+	ChildrenObj.prototype.getChildrenObj = function () {
+	    console.log("ChildrenObj.prototype");
+	};
+	
+	let children = new ChildrenObj;
+	console.dir(children);
+
+输出如下：
+
+![](http://i.imgur.com/eGOUkVN.png)
+
+我new的children，不仅继承了Vue的所有方法和属性，并且继承了我自定义的ChildrenObj这个函数内的属性和原型上的方法；通过这个验证，说明如果想扩展Vue的方法，不仅可以通过Vue内置的扩展外（如果有的话），可以像正常处理对象一样操作Vue；也可以重写Vue上的方法（在不破坏Vue的完整性的情况下）
+
+我想的是，把vue的文档刷一遍，看一本书，这时候基本的vue语法就会用了；然后逐个看Vue这个构造函数的属性和方法，一个个研究下，应该就能算vue入门了；
+
+搞清Vue是一个构造函数后，就可以直接研究他的使用了；(Vue是在JS上挂了一个类，基于Object.__proto__，所有的使用都是基于Obj)
+
+	let testData={
+	    message:"broszhu"
+	};
+	let testVue=new Vue({
+	    data:testData
+	});
+	console.log(testVue.message===testData.message);
+
+
 # 一、定义View；
 
 输出一段话的的写法,类似angular的:
@@ -59,8 +122,11 @@ vue.js分为最基本的2种用法，
 	- 过滤器 	{{ message | uppercase  }}  
 		- 后面的uppercase就是对前面的messsage的修饰；
 		- 在angular里，数据格式等展现都是用过滤器处理，不能直接修改源数据，angular还涉及脏值检查等；vue中应该也是用过滤器修饰数据，不能动源数据；[个人猜的，还没有具体确定]
+	- {{*message}}	只需要渲染一次数据，后续数据变化不再关心；
+	- 这种不仅可以作为文本输出，还可以放在HTML标签上，作为属性输出；比如<p data-class="{{message}}">{{message}}</p>
+	- 自身的指令和特性内不可以做插值；
 - {{{message}}}		以HTML的方式输出message
-	- 注意{{{}}这种的用法是错误的，比如左右一样的数；亲测webstorm2016三个大括号不能正常不全；
+	- 注意{{{}}这种的用法是错误的，必须左右一样的三个大括号数；亲测webstorm2016三个大括号不能正常补全；
 
 - v-text="message"	以文本的方式输出message
 	- 如果仅仅是显示一段话，我更喜欢用v-text这个指令；{{message}} 等价于 v-text="message"
@@ -77,12 +143,17 @@ vue.js分为最基本的2种用法，
 
 上面的v-model 就是一种Viem层比较重要的指令;
 
+先看一个简单的DEMO，VueJs作为外部资源引入
+
+![](http://i.imgur.com/9QbTOxN.png)
+
+[DEMO预览](./1-hello-word.html)
 
 ### 指令(指令是属于View层的)
 
 指令是直接写在HTML元素上的；
 
-指令分为 "页面渲染指令" 和 "事件绑定指令"；
+为了方便记忆，我个人把指令分为 "页面渲染指令" 、 "事件绑定指令"和 "双向值关联指令"
 
 ##### 页面渲染指令
 - v-text		文本输出指令
@@ -91,8 +162,7 @@ vue.js分为最基本的2种用法，
 	- 只在可信内容上使用 v-html，永不用在用户提交的内容上。
 - v-if		条件渲染指令
 	- 是一个布尔值判断
-	- 可以使用"!"反转
-	- 也可以使用".indexOf("xx")>0" 之类的判断
+	- 可以使用"!"反转,也可以使用".indexOf("xx")>0" 之类的判断,vue表达式里兼容JS的语法；
 - v-show		条件渲染指令（适合频繁操作的场景）
 	- 和v-if一样也是一个条件判断；
 	- 区别是：
@@ -130,15 +200,12 @@ v-on:argument		监听事件指令
 
 其中v-bind和v-on可以缩写为【 : 】【 @ 】
 
-##### 动态修改双向值
+##### 双向值关联指令
 
 v-model		只能用于表单 input select textarea
 
 值随着表单类型不同而不同；用在表单控件上创建双向绑定；
 
-![](http://i.imgur.com/9QbTOxN.png)
-
-[DEMO预览](./1-hello-word.html)
 
 # VUE的组件系统概念；
 
