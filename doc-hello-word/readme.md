@@ -64,7 +64,7 @@ VUE有点类似angular的 model view viewModel 这种的MVVM模式
 
 输出后发现Vue是直接定义在Object基类上的一个函数；
 
-下图是Vue实例 vueTemp 的属性和方法
+下图是Vue实例 vueTemp 的属性和方法；
 
 ![](http://i.imgur.com/N5OswG6.png)
 
