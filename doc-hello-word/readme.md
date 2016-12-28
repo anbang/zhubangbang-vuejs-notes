@@ -52,7 +52,7 @@ VUE有点类似angular的 model view viewModel 这种的MVVM模式
 		- data:		指向Model
 		- methods	事件的处理方法
 
-##### 适合我自己的vue学习方法；
+##### 总结出适合我自己的vue学习方法；
 
 每个vue.js应用都是构造函数Vue的一个实例；学习的时候，把Vue作为一个构造函数即可；
 
@@ -98,9 +98,7 @@ VUE有点类似angular的 model view viewModel 这种的MVVM模式
 
 ![](http://i.imgur.com/eGOUkVN.png)
 
-我new的children，不仅继承了Vue的所有方法和属性，并且继承了我自定义的ChildrenObj这个函数内的属性和原型上的方法；通过这个验证，说明如果想扩展Vue的方法，不仅可以通过Vue内置的扩展外（如果有的话），可以像正常处理对象一样操作Vue；也可以重写Vue上的方法（在不破坏Vue的完整性的情况下）
-
-我想的是，把vue的文档刷一遍，看一本书，这时候基本的vue语法就会用了；然后逐个看Vue这个构造函数的属性和方法，一个个研究下，应该就能算vue入门了；
+我new的children，不仅继承了Vue的所有方法和属性，并且继承了我自定义的ChildrenObj这个函数内的属性和原型上的方法；通过这个验证，说明如果想扩展Vue的方法，不仅可以通过Vue内置的扩展外（如果有的话），还可以像正常处理对象一样操作Vue；也可以重写Vue上的方法（在不破坏Vue的完整性的情况下）
 
 搞清Vue是一个构造函数后，就可以直接研究他的使用了；(Vue是在JS上挂了一个类，基于Object.__proto__，所有的使用都是基于Obj)
 
@@ -112,21 +110,46 @@ VUE有点类似angular的 model view viewModel 这种的MVVM模式
 	});
 	console.log(testVue.message===testData.message);
 
+# 搞清楚Vue是一个正常的构造函数，那么学习VUE的重点就可以总结为下面这句话；
+
+	Vue.js基于【全局配置】，通过【指令】或者【组件】的方式渲染View层数据,需要了解【Vue这个构造函数的参数】，以及这个构造函数【实例的属性和方法】
+
+重点是下面几个名词
+
+- 1.全局配置		
+	- 这里集合了Vue的底层配置，比如插值的语法{{}}，在全局配置里修改对应的正则，肯定可以改为ejs那种<%= %>的语法，全局配置属于修改Vue底层的一些设置；
+- 2.指令			
+	- 根据Model层的数据，以表达式的方式判断渲染View层数据；（支持表达式，但不支持语句）
+- 3.组件			
+	- 通过表达式设置，可判断输出大段View层数据；
+- 4.Vue的参数		（是Vue，不是vue）			
+	- 通过参数的设置，黏合View层和Model层；
+- 5.vue的属性和方法	（是vue，不是Vue）		
+	- 实例的属性和方法可以在View层渲染出来后，再次修改参数/配置等
+	- （因为放参数进行实例化以后，已经渲染了；实例能做的肯定就是再次修改了）
+
+# 学习Vue的步骤可以分为；
+
+##### 1.先研究指令/组件，看怎么渲染View层；(指令还分内置指令以及自定义指令)
+##### 2.然后研究Vue这个构造函数的参数；
+##### 3.以及实例的属性和方法；（这样就可以使用了vue了）
+##### 4.然后研究全局配置；(这里就可以手动修改Vue底层了)
 
 # 一、定义View；
 
-输出一段话的的写法,类似angular的:
+输出一段话的的写法,类似angular的指令:
 
-- {{message}} 		以文本的方式输出message
+- {{message}} 		以文本的方式输出message（两对大括号）
 	- 缺点和angular 一样,会有FOUC现象，（在加载的一瞬间会显示这个表达式，非常丑；不知道的还以为乱码了）
 	- 过滤器 	{{ message | uppercase  }}  
 		- 后面的uppercase就是对前面的messsage的修饰；
 		- 在angular里，数据格式等展现都是用过滤器处理，不能直接修改源数据，angular还涉及脏值检查等；vue中应该也是用过滤器修饰数据，不能动源数据；[个人猜的，还没有具体确定]
 	- {{*message}}	只需要渲染一次数据，后续数据变化不再关心；
-	- 这种不仅可以作为文本输出，还可以放在HTML标签上，作为属性输出；比如<p data-class="{{message}}">{{message}}</p>
-	- 自身的指令和特性内不可以做插值；
-- {{{message}}}		以HTML的方式输出message
+	- {{}}不仅可以作为文本输出，还可以放在HTML标签上，作为属性输出；比如<p data-class="{{message}}">{{message}}</p>
+	- Vue自身的指令和特性内不可以做插值；
+- {{{message}}}		以HTML的方式输出message（三对大括号）
 	- 注意{{{}}这种的用法是错误的，必须左右一样的三个大括号数；亲测webstorm2016三个大括号不能正常补全；
+	- 用法同{{}}
 
 - v-text="message"	以文本的方式输出message
 	- 如果仅仅是显示一段话，我更喜欢用v-text这个指令；{{message}} 等价于 v-text="message"
@@ -143,17 +166,21 @@ VUE有点类似angular的 model view viewModel 这种的MVVM模式
 
 上面的v-model 就是一种Viem层比较重要的指令;
 
-先看一个简单的DEMO，VueJs作为外部资源引入
+定义View的更多笔记在[我的博客](http://taobao.fm/archives/1973)
 
-![](http://i.imgur.com/9QbTOxN.png)
+先做一个简单的DEMO(VueJs作为外部资源引入)
 
 [DEMO预览](./1-hello-word.html)
 
-### 指令(指令是属于View层的)
+工作环境截图如下：
+
+![](http://i.imgur.com/9QbTOxN.png)
+
+### 指令 (指令也是属于View层的)
 
 指令是直接写在HTML元素上的；
 
-为了方便记忆，我个人把指令分为 "页面渲染指令" 、 "事件绑定指令"和 "双向值关联指令"
+为了方便记忆，我个人把指令分为 "页面渲染指令" 、 "事件绑定指令" 、"双向值关联指令" 、"其它指令"、"自定义指令"
 
 ##### 页面渲染指令
 - v-text		文本输出指令
@@ -206,6 +233,7 @@ v-model		只能用于表单 input select textarea
 
 值随着表单类型不同而不同；用在表单控件上创建双向绑定；
 
+指令的更多笔记在[我的博客](http://taobao.fm/archives/1984)
 
 # VUE的组件系统概念；
 
@@ -215,7 +243,7 @@ v-model		只能用于表单 input select textarea
 
 ![](http://cn.vuejs.org/images/components.png)
 
-官方给出了这个图，根据HTML文档结构来构建模块；对应的如下；
+官方文档上给出了上面这个图，根据HTML文档结构来构建模块；对应的如下；
 
 	<!--View层-->
 	<div id="App">
@@ -236,15 +264,15 @@ v-model		只能用于表单 input select textarea
 
 这样就可以了（如果app-sidebar不符合我们的业务，可以再封一个 app-sidebar-two 之类的，引入即可；）
 
-这样做有一个弊端，就是HTML/CSS/JS都偶尔在一起了；但是从总体来看，不同模块直接并不耦合；react和vue，这么做是为了屈从大的组件化思想而做出的取舍；如果是基于webpack建立的vue项目，模块的文件是app-nav.vue  这种的文件；
+这样做有一个弊端，就是HTML/CSS/JS都耦合在一起了；但是从总体来看，不同模块直接并不耦合；react和vue，这么做是为了屈从大的组件化思想而做出的取舍；如果是基于webpack建立的vue项目，组件的文件是app-nav.vue  这种的文件；
 
-其中.vue包括三个部分
+其中.vue文件包括三个部分
 
 - template标签	放HTML文件
 - script标签		放JS文件
 - style标签		放CSS文件
 
-三个标签合组了一个模块；使用的时候，只需引入一个模块；
+三个标签合组了一个组件；使用的时候，只需引入对应的组件即可（因为组件内包含了HTML/CSS/HTML，所以引用一个组件即可，无需像传统那样HTML/JS/CSS分别引）；
 
 ##### 外部资源导入的方式；
 
