@@ -1,25 +1,26 @@
 //Model层
 let pageData={
-  message:"hello word , by input"
+  imgSrc:"http://cn.vuejs.org/images/logo.png",
+  logoName:"ad-demo.png",
+  isRed:true,
+  size:32,
+  targetClass:"origin",
+  targetBg:"targetBg",
+  message:"hello word",
+  active:{
+    origin:true,
+    targetBg:true
+  }
 };
 
 //事件的处理方法
-let pageUtility={
-  doSomething:function (e) {
-    e.preventDefault();
-    console.log(this.message,this);
-  },
-  sayHello:function (arg,e) {
-    // e.preventDefault();
-    console.log( arg + "wifisong",this);
-  }
-};
+let pageUtility={};
+let pgeComputed={};
 
 //View Model  链接View和Model
 let vue=new Vue({
   el:"#App",
   data:pageData,
-  methods:pageUtility
+  methods:pageUtility,
+  computed:pgeComputed
 });
-
-console.dir(vue);

@@ -3,25 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>JS引用文件</title>
+  <style>
+    img{  width: 50px;  }
+    .light{  color: red;  }
+    .origin{color: orange;}
+    .targetBg{background: #465;}
+    .bigSize{font-size: 24px;font-weight: 700;}
+  </style>
 </head>
 <body>
 <!--View层-->
 <div id="App">
-  <!--引入导航模块-->
-  <app-nav></app-nav>
+  <img :src="imgSrc" alt="绝对地址">
+  <p>下面是相对地址</p>
+  <img :src="'./img/'+logoName" alt="相对地址">
 
-  <app-view>
+  <p :class=[targetClass,targetBg]>多个class用数组包裹</p>
+  <p :class={light:isRed}>{light:isRed} 表达式用{}包裹,{}外也可以用引号包裹</p>
+  <p :class={light:isRed,bigSize:size}>多个值判断</p>
+  <p :style={fontSize:size+'px'}>{fontSize:size+'px'}</p>
 
-    <!--引入边栏-->
-    <app-sidebar></app-sidebar>
-
-    <!--引入内容区-->
-    <app-content></app-content>
-
-  </app-view>
+  <p :class="active">用一个active的对象,这种写法蛮好的</p>
 </div>
-
-</body>
-<script src="../lib/vue.js"></script>
+<script src="http://www.jsdaxue.com/ssl/lib/vue/vue.js"></script>
 <script src="./src/line-text.js"></script>
+</body>
 </html>
