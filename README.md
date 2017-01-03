@@ -65,16 +65,16 @@
 
 # 目录
 
-# hello word
+### hello word
 
 - [vue初识](./doc-hello-word)
 
-# 指令
+### 指令
 
-# 组件
+### 组件
 
-# Vue的参数	(Vue是构造函数)
+### Vue的参数	(Vue是构造函数)
 
-# vue的属性	(vue是实例)
+### vue的属性	(vue是实例)
 
-# vue的方法	(vue是实例)
+### vue的方法	(vue是实例)

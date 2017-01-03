@@ -1,31 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>JS引用文件</title>
+  <meta charset="UTF-8">
+  <title>JS引用文件</title>
   <style>
-    img{  width: 50px;  }
-    .light{  color: red;  }
-    .origin{color: orange;}
-    .targetBg{background: #465;}
-    .bigSize{font-size: 24px;font-weight: 700;}
   </style>
 </head>
 <body>
+
 <!--View层-->
 <div id="App">
-  <img :src="imgSrc" alt="绝对地址">
-  <p>下面是相对地址</p>
-  <img :src="'./img/'+logoName" alt="相对地址">
-
-  <p :class=[targetClass,targetBg]>多个class用数组包裹</p>
-  <p :class={light:isRed}>{light:isRed} 表达式用{}包裹,{}外也可以用引号包裹</p>
-  <p :class={light:isRed,bigSize:size}>多个值判断</p>
-  <p :style={fontSize:size+'px'}>{fontSize:size+'px'}</p>
-
-  <p :class="active">用一个active的对象,这种写法蛮好的</p>
+  <div v-if="gender === 'man'">男</div>
+  <div v-else-if="gender === 'woman'">女</div>
+  <div v-else>未知</div>
 </div>
-<script src="http://www.jsdaxue.com/ssl/lib/vue/vue.js"></script>
+
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="./src/line-text.js"></script>
 </body>
 </html>
