@@ -69,23 +69,30 @@ VUE中分为三个结构；
 注意有些教程的转换大写用的是toUpperCase，那是错误的，正确的是uppercase;(版本V2.0+)
 
 
-##### 一、页面渲染指令
+##### 1、页面渲染指令
 
 - v-text
 - v-html
 - v-if
 - v-show
 - v-else
+- v-else-if
 - v-for
 - v-bind (简写为:)
 
-##### 二、事件绑定指令
+##### 2、事件绑定指令
 
 - v-on(简写为@)
 
-##### 三、动态修改双向值指令
+##### 3、动态修改双向值指令
 
 - v-model
+
+##### 4、其它选择器
+
+- v-pre
+- v-cloak
+- v-once
 
 # 一、页面渲染指令详解；
 
@@ -161,4 +168,57 @@ v-else-if，顾名思义，用作 v-if 的 else-if 块。
 
 [![v-bind](http://taobao.fm/wp-content/uploads/2016/12/v-bind_thumb.png "v-bind")](http://taobao.fm/wp-content/uploads/2016/12/v-bind.png)
 
-渲染指令
+v-bind可以缩写为[：]
+
+# 二、事件绑定指令
+
+v-on:argument		监听事件指令  argument 可以是click/keyup/submit等
+
+- v-on:click="doSomething"
+- v-on:click="sayHello('Hi ')"
+- 修饰符
+	- .stop		阻止冒泡 		调用event.stopPropagation()
+	- .prevent	阻止默认行为		调用event.preventDefault()		常用的
+	- .once		只执行一次
+	- .capture					事件监听器相关的修饰符；	TODO 添加事件侦听器时使用事件捕获模式
+	- .self						只当事件是从侦听器绑定的元素本身触发时才触发回调。(只当事件在该元素本身（而不是子元素）触发时触发回调)
+	- .{keyCode | keyAlias} 		只在指定按键上触发回调;	TODO 待续
+	- .native					监听组件根元素的原生事件
+
+其中v-bind和v-on可以缩写为【 : 】【 @ 】
+
+![](http://i.imgur.com/mKXMUCS.png)
+
+- 绑定事件监听器。事件类型由参数指定。表达式可以是一个方法的名字或一个内联语句，如果没有修饰符也可以省略。
+- 注意：用在普通元素上时，只能监听 **原生** DOM 事件。**用在自定义元素组件上时，也可以监听子组件触发的自定义事件**。
+- 在监听原生 DOM 事件时，方法以事件为唯一的参数。如果使用内联语句，语句可以访问一个 $event 属性： v-on:click="handle('ok', $event)"。
+
+- 按键修饰符
+	- @:keyup.13		keyCode是13的时候触发
+	- @:keyup.enter	回车的时候
+	- tab	
+	- delete 	
+	- esc	
+	- space	
+	- up	
+	- down	
+	- left	
+	- right	
+
+
+# 三、动态修改双向值指令
+
+v-model	随着表单控件类型不同而不同
+
+使用限制在
+
+- input
+- select
+- textarea
+- components
+
+修饰符
+
+- .lazy		取代input监听change事件
+- .number	输入字符串转为数字
+- .trim		输入首位空格过滤

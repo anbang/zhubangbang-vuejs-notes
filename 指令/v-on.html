@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>v-on的使用</title>
+</head>
+<body>
+<div id="app">
+    <!--行内写法-->
+    <input type="button" @click="tempNum +=1" value="点击增加一次">
+    <p>这个按钮被点击了 <span v-text="tempNum"></span>次</p>
+
+    <!--外链写法-->
+    <input type="button" value="外链写法" @click="consoleUserInfo(' flagTest')">
+        <!--输出：broszhu flagTest  26   man-->
+    <input type="button" value="监听事件" @click="consoleUserInfo">
+        <!--不穿参数，merhods里的方法，默认是event-->
+    <input type="button" value="混合参数" @click="warningInfo('this is warning info ',$event)">
+
+    <a href="https://www.google.com.hk/webhp?tab=Tw" @click.stop="modifier('@click.stop')">google</a>
+    <a href="https://www.google.com.hk/webhp?tab=Tw" @click.prevent="modifier('@click.prevent')">google</a>
+    <a href="https://www.google.com.hk/webhp?tab=Tw" @click.stop.prevent="modifier('@click.stop.prevent')">google</a>
+    <a href="https://www.google.com.hk/webhp?tab=Tw" @click.prevent>只有修饰符</a>
+    <a href="https://www.google.com.hk/webhp?tab=Tw" @click.prevent.once="modifier('@click.once')">once</a>
+
+</div>
+<script src="http://www.jsdaxue.com/ssl/lib/vue/vue2.1.10.js"></script>
+<script src="./src/v-on.js"></script>
+</body>
+</html>
