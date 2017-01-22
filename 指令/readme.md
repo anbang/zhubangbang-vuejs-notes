@@ -66,6 +66,8 @@ VUE中分为三个结构；
 
 四、支持过滤器；
 
+- uppercase
+
 注意有些教程的转换大写用的是toUpperCase，那是错误的，正确的是uppercase;(版本V2.0+)
 
 
