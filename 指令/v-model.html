@@ -9,6 +9,57 @@
     <span>充值金额：</span>
     <input v-model="userName" placeholder="edit me">
     <p>您输入的金额是: {{ userName }}</p>
+
+    <br> <br><br> <br>
+    <span>您输入的区域文本内容是</span>
+    <textarea name="" id="" cols="30" rows="10" placeholder="输入的" v-model="textareaMessage"></textarea>
+    <p style="white-space: pre">{{textareaMessage}}</p>
+
+    <br> <br><br> <br>
+    <input type="checkbox" id="checked-test" v-model="checkedInfo">
+    <label for="checked-test">{{checkedInfo}}</label>
+
+    <br> <br><br> <br>
+    <div>
+        <div>
+            <input type="checkbox" id="jack" value="jack" v-model="checkedAry">
+            <label for="jack">Jack</label>
+        </div>
+        <div>
+            <input type="checkbox" id="diaos" value="diaos" v-model="checkedAry">
+            <label for="diaos">diaos</label>
+        </div>
+        <div>
+            <input type="checkbox" id="lilei" value="lilei" v-model="checkedAry">
+            <label for="lilei">lilei</label>
+        </div>
+        <p>您选择的数组是{{checkedAry}}</p>
+    </div>
+
+    <br> <br><br> <br>
+    <div>
+        <div>
+            <input type="radio" id="one" value="one" v-model="radioInfo">
+            <label for="one">one</label>
+        </div>
+        <div>
+            <input type="radio" id="two" value="two" v-model="radioInfo">
+            <label for="two">two</label>
+        </div>
+        <br>
+        <span>你选择的单选按钮是 {{radioInfo}}</span>
+    </div>
+
+    <div>
+        <select multiple v-model="selectedInfo">
+            <option value="A">这是第一个选择</option>
+            <option value="B">这是第二个选择</option>
+            <option value="C">这是第三个选择</option>
+        </select>
+        <p>你选择的是{{selectedInfo}}</p>
+    </div>
+
+
 </div>
 <script src="http://www.jsdaxue.com/ssl/lib/vue/vue2.1.10.js"></script>
 <script src="./src/v-model.js"></script>

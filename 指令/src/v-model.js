@@ -1,5 +1,10 @@
 let pageData={
-    userName:0
+    userName:"",
+    textareaMessage:"",
+    checkedInfo:false,
+    checkedAry:[],
+    radioInfo:"",
+    selectedInfo:""
 };
 
 let pageUtility={};
