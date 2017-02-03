@@ -1,5 +1,11 @@
 ##### 朱安邦的vue.js学习笔记
 
+类似angular，指令angular是ng-，vue是v-；
+
+vue是一片html代码配合json，在new出来的实例;
+
+vue比较小巧；但是不兼容低版本IE；
+
 #### 2种准备工作
 
 1、基于npm环境，需编译

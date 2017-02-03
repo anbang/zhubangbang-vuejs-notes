@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="page-data">
+    <p>{{string}}</p>
+    <p>{{number}}</p>
+    <p>{{boolean}}</p>
+    <p>{{array}}</p>
+
+    <p>{{json}}</p><span>在JSON输出的时候，vue1.X是输出[object Object]；vue2.X是输出详细的信息</span>
+    <ul>
+        <li v-for="value in array">{{value}} {{$index}}</li>
+    </ul>
+    <ul>
+        <li v-for="value in json">{{$key}} {{value}} {{$index}} </li>
+    </ul>
+    <ul>
+        <li v-for="(k,v) in json">{{$key}}  {{$index}} {{k}}  {{v}}</li>
+    </ul>
+
+</div>
+
+<!--<script src="http://www.jsdaxue.com/ssl/lib/vue/vue2.1.10.js"></script>-->
+<script src="http://www.jsdaxue.com/ssl/lib/vue/vue.js"></script>
+<script src="./src/data.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../lib/bootstrap/bootstrap.min.css">
+
+    <style>
+        .target-div{
+            width: 100px;
+            height: 100px;
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+<div id="page-methods">
+    <input type="button" value="click me" @click="show">
+    <hr>
+    <input type="button" value="push list" @click="add">
+    <span>点击这个按钮，向array里添加一项</span>
+    <ul>
+        <li v-for="value in array">{{value}}</li>
+    </ul>
+    <hr>
+    <input type="button" value="toggle" @click="toggle">
+    <span>点击按钮，DIV消失切换</span>
+    <div class="target-div" v-show="showFlag"></div>
+    <hr>
+    <h1>TODO List demo</h1>
+
+
+    <!--模态框 弹出框-->
+    <div role="dialog" class="modal fade bs-example-modal-sm" id="layer">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        <span>&times;</span>
+                    </button>
+                    <h4 class="modal-title">确认删除么?</h4>
+                </div>
+                <div class="modal-body text-right">
+                    <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" >确认</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../lib/jquery/jquery-1.7.2.js"></script>
+<script src="../lib/bootstrap/bootstrap.js"></script>
+<script src="http://www.jsdaxue.com/ssl/lib/vue/vue2.1.10.js"></script>
+<!--<script src="http://www.jsdaxue.com/ssl/lib/vue/vue.js"></script>-->
+<script src="./src/methods.js"></script>
+</body>
+</html>

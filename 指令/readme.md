@@ -157,6 +157,24 @@ v-else-if，顾名思义，用作 v-if 的 else-if 块。
 
 [![v-for](http://taobao.fm/wp-content/uploads/2016/12/v-for_thumb.png "v-for")](http://taobao.fm/wp-content/uploads/2016/12/v-for.png)
 
+> 循环用的是 v-for
+
+	    <ul>
+	        <li v-for="value in array">{{value}} {{$index}}</li>
+	    </ul>
+	    <ul>
+	        <li v-for="value in json">{{$key}} {{value}} {{$index}} </li>
+	    </ul>
+
+其中数组除了value值外，还可以用 $index ；对象可以用$index 和 $key; 也可以做为参数一样使用,如下
+
+    <ul>
+        <li v-for="(k,v) in json">{{$key}} {{$index}} {{k}}  {{v}}</li>
+    </ul>
+
+当然数组没有必要这么循环了，没啥意义
+
+
 **v-bind:**
 
 可以在其名称后面带一个参数，中间放一个冒号隔开，这个参数通常是写HTML元素的特性（attribute），图片的src等；

@@ -32,7 +32,7 @@ vue.js分为最基本的2种用法，
 	      message:"hello word!!!"
 	  };
 	
-	  //View Model  链接View和Model
+	  //View Model  链接View和Model  属于vm/C
 	  new Vue({
 	      el:"#App",
 	      data:data

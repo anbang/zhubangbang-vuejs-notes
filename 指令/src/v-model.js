@@ -4,7 +4,7 @@ let pageData={
     checkedInfo:false,
     checkedAry:[],
     radioInfo:"",
-    selectedInfo:""
+    selectedInfo:[]
 };
 
 let pageUtility={};
