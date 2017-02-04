@@ -64,12 +64,39 @@ VUE中分为三个结构；
 
 [![表达式的测试卷哦](http://taobao.fm/wp-content/uploads/2016/12/thumb.png "表达式的测试卷哦")](http://taobao.fm/wp-content/uploads/2016/12/fa096074aba2.png)
 
-四、支持过滤器；
+**四、支持过滤器；**
 
 - uppercase
+- lowercase
+- capitalize
+- currency	钱
 
-注意有些教程的转换大写用的是toUpperCase，那是错误的，正确的是uppercase;(版本V2.0+)
+uppercase;(版本V2.0+);(注意有些教程的转换大写说的是toUpperCase，那是错误的,没有to，也不是驼峰写法)
 
+        {{hello|uppercase}}
+
+可以自定义前缀,管道符可以多重过滤的(多次使用)
+
+        <script>
+            window.onload=function(){
+                new Vue({
+                    el:'#box',
+                    data:{
+                        hello:"hello eveyOne",
+                        deskPri:500
+                    }
+                });
+            };
+        </script>
+    </head>
+    <body>
+        <div id="box">
+            {{hello|uppercase}}
+            {{deskPri|currency "￥"}}
+        </div>
+    </body>
+    
+currency 默认是$,如果想改变 currency 后面加个参数(字符串的形式)，就可以改为任意你指定的字符了，比如￥
 
 ##### 1、页面渲染指令
 
@@ -180,7 +207,9 @@ v-else-if，顾名思义，用作 v-if 的 else-if 块。
 可以在其名称后面带一个参数，中间放一个冒号隔开，这个参数通常是写HTML元素的特性（attribute），图片的src等；
 
 - 用法 v-bind:argument=”expression” 
-- 例如 v-bind:class=”expression ? trueValue : falseValue”
+- 例如 v-bind:argument=”expression ? trueValue : falseValue”
+
+图片src的时候，不要直接src="{{url}}",这样虽然可以引入，但是vue更推荐使用:src="url" 这样的写法
 
 缩写为冒号 
 
@@ -189,6 +218,70 @@ v-else-if，顾名思义，用作 v-if 的 else-if 块。
 [![v-bind](http://taobao.fm/wp-content/uploads/2016/12/v-bind_thumb.png "v-bind")](http://taobao.fm/wp-content/uploads/2016/12/v-bind.png)
 
 v-bind可以缩写为[：]
+
+v-bind 用来绑定class的时候，推荐用JSON来控制,绑定class的时候，里面的数据不是vue-data里面的数据，而是类名
+
+        <style>
+            .red{
+                color: red;
+            }
+            .blue{
+                background: blue;
+            }
+        </style>
+        <script>
+            window.onload=function(){
+                new Vue({
+                    el:'#box',
+                    data:{
+                        json:{
+                            red:true,
+                            blue:true
+                        }
+                    },
+                    methods:{
+                    }
+                });
+            };
+        </script>
+    </head>
+    <body>
+        <div id="box">
+            <strong :class="json">文字...</strong>
+        </div>
+    </body>
+    
+这样可以通过数据来控制它的类名,从而控制显示;
+
+:style的时候，里面的数据是vue-data里面的数据，这个时候复合样式记得使用小驼峰命名法；
+
+###### :class和:style的区别
+
+- 在使用:class的时候：里面的数据通过true和false来控制需要输出的类名；这个时候类名是样式里面已经写好的，样式是写在css里；
+- 在使用:style的时候：里面的数据是通过data直接写样式的，样式是写在data里面的,这个时候复合样式记得使用小驼峰命名法；如下
+
+
+        <script>
+            window.onload=function(){
+                new Vue({
+                    el:'#box',
+                    data:{
+                        a:{
+                            color:'red',//样式是写在这里的
+                            backgroundColor:'gray'
+                        }
+                    },
+                    methods:{
+                    }
+                });
+            };
+        </script>
+    </head>
+    <body>
+        <div id="box">
+            <strong :style="a">文字...</strong>
+        </div>
+
 
 # 二、事件绑定指令
 

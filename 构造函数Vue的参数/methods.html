@@ -11,6 +11,9 @@
             height: 100px;
             background-color: aquamarine;
         }
+        .gray{
+            background: #f2f2f2;
+        }
     </style>
 </head>
 <body>
@@ -47,12 +50,31 @@
             </div>
         </div>
     </div>
+    <hr>
+    <h2>百度搜索下拉框</h2>
+    <input type="text" v-model="keyword" @keyup="getBaiDuKeyword" @keydown.down.prevent="directionDown" @keydown.up.prevent="directionUp">
+    <ul>
+        <!--:class="{gray:$index==nowIndex}"-->
+        <li v-for="value in searchLenovo">
+            {{value}} {{$index}}
+        </li>
+    </ul>
+    <p v-show="searchLenovo.length==0">暂无数据...</p>
 </div>
+
+
+
+
+
 
 <script src="../lib/jquery/jquery-1.7.2.js"></script>
 <script src="../lib/bootstrap/bootstrap.js"></script>
+
 <script src="http://www.jsdaxue.com/ssl/lib/vue/vue2.1.10.js"></script>
 <!--<script src="http://www.jsdaxue.com/ssl/lib/vue/vue.js"></script>-->
+<!--如果需要发起HTTP，需要引入vue-resource-->
+<script src="../lib/vue-resource.js"></script>
+
 <script src="./src/methods.js"></script>
 </body>
 </html>
