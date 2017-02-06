@@ -10,6 +10,9 @@ let pageData={
         "c":"CCCC"
     },
     showFlag:true,
+    something:"",
+    somethingList:[],
+    nowListIndex:"",
     keyword:"",
     searchLenovo:[],
     nowIndex:-1
@@ -24,6 +27,19 @@ let pageUtility={
     },
     toggle:function (e) {
         this.showFlag=!this.showFlag;
+    },
+    addList:function (e) {
+        this.somethingList.push({
+            something:this.something
+        });
+        this.something="";
+    },
+    deleteMsg:function (n) {
+        if(n==-2){
+            this.somethingList=[];
+        }else{
+            this.somethingList.splice(n,1);
+        }
     },
     getBaiDuKeyword:function (ev) {
         console.log(ev.keyCode);

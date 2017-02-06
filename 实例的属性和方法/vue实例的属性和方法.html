@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+</head>
+<body>
+<div id="box-wrap">
+    <div id="box">
+        <input type="text" v-model="msg">
+        {{msg}}
+    </div>
+</div>
+
+
+    <script src="http://www.jsdaxue.com/ssl/lib/vue/vue2.1.10.js"></script>
+    <script>
+        let vm=new Vue({
+            el:'#box',
+            data:{
+                msg:'well'
+            }
+        });
+        let vmSec=new Vue({
+            el:'#box-wrap',
+            data:{
+                msg:'well'
+            }
+        });
+        console.log(vm);
+        console.log(vm.$el);
+        console.log(vm.$data);
+
+        //$parent
+        console.log(vm.$parent);
+        console.log(vm.$root);
+
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -31,6 +31,42 @@
     <div class="target-div" v-show="showFlag"></div>
     <hr>
     <h1>TODO List demo</h1>
+    <form role="form">
+        <div class="form-group">
+            <label for="listItem">要做的事务:</label>
+            <input type="text" id="listItem" class="form-control" placeholder="输入您要做的事务" v-model="something">
+        </div>
+        <div class="form-group">
+            <input type="button" value="添加" class="btn btn-primary" @click="addList()">
+            <input type="reset" value="重置" class="btn btn-danger">
+        </div>
+    </form>
+    <hr>
+    <table class="table table-bordered table-hover">
+        <caption class="h3 text-info">Todo List</caption>
+        <tr class="text-danger">
+            <th class="text-center">序号</th>
+            <th class="text-center">事务</th>
+            <th class="text-center">操作</th>
+        </tr>
+        <tr class="text-center" v-for="(val,index) in somethingList">
+            <td>{{index+1}}</td>
+            <td>{{val.something}}</td>
+            <td>
+                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#layer" @click="nowListIndex=index">删除</button>
+            </td>
+        </tr>
+        <tr v-show="somethingList.length!=0">
+            <td colspan="4" class="text-right">
+                <button class="btn btn-danger btn-sm" @click="nowListIndex=-2" data-toggle="modal" data-target="#layer" >删除全部</button>
+            </td>
+        </tr>
+        <tr v-show="somethingList.length==0">
+            <td colspan="4" class="text-center text-muted">
+                <p>暂无数据....</p>
+            </td>
+        </tr>
+    </table>
 
 
     <!--模态框 弹出框-->
@@ -45,7 +81,7 @@
                 </div>
                 <div class="modal-body text-right">
                     <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
-                    <button data-dismiss="modal" class="btn btn-danger btn-sm" >确认</button>
+                    <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="deleteMsg(nowListIndex)">确认</button>
                 </div>
             </div>
         </div>
@@ -54,9 +90,9 @@
     <h2>百度搜索下拉框</h2>
     <input type="text" v-model="keyword" @keyup="getBaiDuKeyword" @keydown.down.prevent="directionDown" @keydown.up.prevent="directionUp">
     <ul>
-        <!--:class="{gray:$index==nowIndex}"-->
-        <li v-for="value in searchLenovo">
-            {{value}} {{$index}}
+        <!--:class="{gray:$index==nowIndex}" 这么写在vue1中是没有问题的，但是在vue2中会报错,需要显示声明-->
+        <li v-for="(value,index) in searchLenovo" :class="{gray:nowIndex==index}">
+            {{value}}
         </li>
     </ul>
     <p v-show="searchLenovo.length==0">暂无数据...</p>

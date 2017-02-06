@@ -3,6 +3,7 @@
 - el			挂载元素
 - data  		数据	
 - methods	方法集合
+- 生命周期
 
 # el 挂载元素
 
@@ -21,6 +22,23 @@
         this.dataName.push("pushData")
 
 触发这些方法的事件可以有click/dbclick，mouseover、mouseout、mousedown等等
+
+# 声明周期
+
+- beforeCreate  初始化实例之前
+- created       实例已经创建
+- beforeMount   在挂载开始之前被调用(相关的render函数首次被调用)                  该钩子在服务器端渲染期间不被调用。
+- mounted       el被新创建的vm.$el替换，并挂载到实例上去之后调用该钩子             该钩子在服务器端渲染期间不被调用。
+- beforeUpdate  数据更新时调用，发生在虚拟 DOM 重新渲染和打补丁之前                该钩子在服务器端渲染期间不被调用。
+- updated       由于数据更改导致的虚拟DOM重新渲染和打补丁，在这之后会调用该钩子      该钩子在服务器端渲染期间不被调用。
+- activated     keep-alive组件激活时调用。                                     该钩子在服务器端渲染期间不被调用。
+- deactivated   keep-alive组件停用时调用                                       该钩子在服务器端渲染期间不被调用。
+- beforeDestroy 销毁之前
+- destroyed     销毁之后
+
+![](http://cn.vuejs.org/images/lifecycle.png)
+
+
 
 
 
