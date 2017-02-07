@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="box">
+    <p>{{msg}}</p>
+    <p>width：{{width}} px</p>
+    <p>height：{{height}} px</p>
+    <p>radius：{{radius}}</p>
+    <p>radius：{{area}}</p>
+</div>
+<script src="http://www.jsdaxue.com/ssl/lib/vue/vue2.1.10.js"></script>
+<!--<script src="http://www.jsdaxue.com/ssl/lib/vue/vue.js"></script>-->
+<script>
+    let pageData={
+        msg:"width默认是200，height是width+5，鼠标单机，width改为300",
+        width:200,
+        radius:50
+    };
+    let pageComputed={
+        height:function () {
+            return this.width +5
+        },
+        area:{
+            set:function (val) {
+                this.radius=99
+            },
+            get:function () {
+                return this.width*this.height
+            }
+        }
+    };
+    let pageUtility={};
+
+    let vm=new Vue({
+        el:"#box",
+        data:pageData,
+        computed:pageComputed,
+        methods:pageUtility
+    });
+
+    document.onclick=function(){
+        vm.width=300;
+        vm.area=99;
+    };
+</script>
+</body>
+</html>

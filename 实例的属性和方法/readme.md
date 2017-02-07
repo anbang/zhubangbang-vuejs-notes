@@ -72,3 +72,7 @@
 	根Vue实例，可能是自己也可以能是父级；
 
 	console.log(vm.$root);
+
+# $isServer		
+
+	当前 Vue 实例是否运行于服务器

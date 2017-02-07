@@ -4,6 +4,7 @@
 - data  		数据	
 - methods	方法集合
 - 生命周期
+- computed
 
 # el 挂载元素
 
@@ -37,6 +38,45 @@
 - destroyed     销毁之后
 
 ![](http://cn.vuejs.org/images/lifecycle.png)
+
+# computed  计算属性
+
+计算属性改变后，
+
+        let pageData={
+            msg:"width默认是200，height是width+5，鼠标单机，width改为300",
+            width:200,
+            radius:50
+        };
+        let pageComputed={
+            height:function () {
+                //仅读取，值只须为函数
+                return this.width +5
+            },
+            area:{
+                //读取和设置
+                set:function (val) {
+                    this.radius=99
+                },
+                get:function () {
+                    return this.width*this.height
+                }
+            }
+        };
+        let pageUtility={};
+    
+        let vm=new Vue({
+            el:"#box",
+            data:pageData,
+            computed:pageComputed,
+            methods:pageUtility
+        });
+    
+        document.onclick=function(){
+            vm.width=300;
+            vm.area=99;
+        };
+       
 
 
 
