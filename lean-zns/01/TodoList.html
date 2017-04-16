@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="../../lib/bootstrap/bootstrap.min.css">
-    <link rel="stylesheet" href="../../lib/jquery/jquery-1.7.2.js">
-    <link rel="stylesheet" href="../../lib/bootstrap/bootstrap.js">
+    <script src="../../lib/jquery/jquery-1.7.2.js"></script>
+    <script src="../../lib/bootstrap/bootstrap.js"></script>
     <script src="../../lib/vue.js"></script>
 </head>
 <body>
@@ -14,15 +14,15 @@
         <form  role="form">
             <div class="form-group">
                 <label for="username">userName:</label>
-                <input type="text" id="username" class="form-control" placeholder="writeIn user name">
+                <input type="text" id="username" class="form-control" placeholder="writeIn user name" v-model="username">
             </div>
             <div class="form-group">
                 <label for="age">age:</label>
-                <input type="text" id="age" class="form-control" placeholder="writeIn user age">
+                <input type="text" id="age" class="form-control" placeholder="writeIn user age" v-model="userage">
             </div>
             <div class="form-group">
-                <input type="button" class="btn btn-primary" value="submit">
-                <input type="button" class="btn btn-danger" value="reset">
+                <input type="button" class="btn btn-primary" value="add" @click="add()">
+                <input type="button" class="btn btn-danger" value="reset" @click="reset()">
             </div>
         </form>
         <hr>
@@ -34,58 +34,92 @@
                 <th class="text-center">ager</th>
                 <th class="text-center">todo</th>
             </tr>
-            <tr class="text-center">
-                <td>1</td>
-                <td>hel</td>
-                <td>19</td>
+
+            <tr class="text-center" v-for="item in myDate">
+                <td>{{$index+1}}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.age}}</td>
                 <td>
-                    <input type="button" class="btn btn-danger" value="delete">
+                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#layer" @click="nowIndex=$index,deleteDes='当前项'">删除</button>
                 </td>
             </tr>
-            <tr class="text-center">
-                <td>1</td>
-                <td>hel</td>
-                <td>19</td>
-                <td>
-                    <input type="button" class="btn btn-danger" value="delete">
-                </td>
-            </tr>
-            <tr class="text-center ">
+
+            <tr class="text-center " v-show="myDate.length!==0">
                 <td colspan="4" class="text-right">
-                    <input type="button" class="btn btn-danger" value="delete All">
+                    <input type="button" class="btn btn-danger" value="delete All" data-toggle="modal" data-target="#layer" @click="nowIndex=-1,deleteDes='全部项'">
                 </td>
             </tr>
-            <tr class="text-center ">
-                <td colspan="4" class="text-right">
+            <tr class="text-center " v-show="myDate.length===0">
+                <td colspan="4">
                     <p class="text-info">no data ...</p>
-                </td>
+                </td>my
             </tr>
         </table>
-
         <!-- model window-->
-        <div role="dialog" class="modal" id="layer">
+        <div role="dialog" class="modal fade bs-example-modal-sm" id="layer" data-index="{{nowIndex}}">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title">您确认删除当前数据么？</h4>
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                        <h4 class="modal-title">确认删除 {{deleteDes}} 么?</h4>
+                    </div>
+                    <div class="modal-body text-right">
+                        <button data-dismiss="modal" class="btn btn-primary btn-sm">取消</button>
+                        <button data-dismiss="modal" class="btn btn-danger btn-sm" @click="deleteMsg(nowIndex)">确认</button>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 
+
+
 <script>
     var pageData={
-        msg:"hello word",
-        arr:["one","two","three"],
-        disBool:false,
-        jsonData:{"a":"000","b":"111","c":"222"}
+        myDate:[
+            {
+                name:"zhu",
+                age:"12"
+            },
+            {
+                name:"an",
+                age:"123"
+            }
+        ],
+        username:"",
+        userage:"",
+        nowIndex:-100,
+        deleteDes:""
     };
 
     var pageMethods={
-        hide:function (e) {
-            this.disBool=!this.disBool
+        add:function () {
+            var tempData={
+                name:this.username,
+                age:this.userage
+            };
+            if(this.username!==""){
+                this.myDate.push(tempData);
+                this.username="";
+                this.userage="";
+            }else{
+                alert("please write in")
+            }
+        },
+        reset:function () {
+            this.username="";
+            this.userage="";
+        },
+        deleteMsg:function (nowIndex) {
+            if(nowIndex===-1){
+                this.myDate=[];
+            }else{
+                this.myDate.splice(nowIndex,1);
+            }
         }
     };
 
