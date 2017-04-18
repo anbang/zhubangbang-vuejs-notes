@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+
+<div id="app"></div>
+<script>
+    var pageData={
+        books:[
+            {text:"one"},
+            {text:"two"},
+            {text:"three"}
+        ]
+    };
+
+    var pageMethod={
+
+    };
+
+    var vm=new Vue({
+        el:"#app",
+        data:pageData,
+        methods:pageMethod
+    });
+
+//    vm.books.push({text:"xxxx"});
+    console.dir(vm);
+    var oApp=document.getElementById('app');
+    console.dir(vm.books===pageData.books);
+    console.dir(vm.$data===pageData);
+    console.dir(vm.$el===oApp);
+    console.dir(vm.$options);
+    console.dir(vm.$parent);
+    console.dir(vm.$root);
+    console.dir(vm.$children);
+</script>
+</body>
+</html>

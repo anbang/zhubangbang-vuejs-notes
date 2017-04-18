@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/vue.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <p>{{msg}}</p>
+    <p>{{reverseMsg}}</p>
+    <p>{{message1}}</p>
+    <p>{{message2}}</p>
+    <p>{{now}}</p>
+    <p>{{message001()}}</p>
+    <hr/>
+    <input type="text" v-model="firstName"/>
+    <input type="text" v-model="lastName"/>
+    <p>
+        {{fullName}}
+    </p>
+</div>
+<script>
+    var pageData={
+        msg:"hello",
+        firstName:"zhu",
+        lastName:"anbang"
+    };
+    var pageCompued={
+        reverseMsg:function(){
+            return this.msg.split("").reverse().join("");
+        },
+        message1:"China Hangzhou",
+        message2:function(){
+            //必须是一个函数内的return；
+            return "China Hang"
+        },
+        now: function () {
+            return Date.now()
+        },
+        fullName:function(){
+            return this.firstName+" "+this.lastName;
+        },
+        fullName2:{
+            get:function(){
+                return this.firstName+" "+this.lastName;
+            },
+            set:function(val){
+                var names=val.split(" ");
+                this.firstName=names[0];
+                this.lastName=names[names.length-1];
+            }
+        }
+    };
+
+    var pageMethods={
+        message001:function(){
+            return "China Hang ++ "+Date.now()
+        }
+    };
+
+    var vm=new Vue({
+        el:"#app",
+        data:pageData,
+        computed:pageCompued,
+        methods:pageMethods
+    });
+    console.log(vm.reverseMsg);
+    vm.$data.msg="hello-wifi";
+    console.log(vm.reverseMsg);
+
+    vm.fullName2 = 'John Doe';
+</script>
+</body>
+</html>
