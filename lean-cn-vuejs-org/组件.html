@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .bg{background-color: #d58512}
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/vue-resource.js"></script>
+</head>
+<body>
+<div id="app">
+    <my-div-component></my-div-component>
+    <diy-string msg="1+1"></diy-string>
+    <diy-string :msg="1+1"></diy-string>
+    <br/>
+    <br/>
+    <br/>
+    <hr/>
+    <input type="text" v-model="parentMsg"/>
+    <diy-string :msg="parentMsg"></diy-string>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <input type="text" v-model="parentMsg"/>
+    <!--<example :isnumber="parentMsg"></example>-->
+    <!--
+    <example :numOrString="parentMsg"></example>
+    <example :mustString="parentMsg"></example>
+    <example :total1="parentMsg"></example>
+    <example :total2="parentMsg"></example>-->
+    <hr/>
+    <p>{{total}}</p>
+    <button-counter v-on="addTotal"></button-counter>
+    <button-counter v-on="addTotal"></button-counter>
+
+</div>
+<script>
+    var pageData={
+        parentMsg:"",
+        total:0
+    };
+    var pageCompued={};
+    var pageWatch={};
+    var pageMethod={
+        addTotal:function(){
+            this.total+=1;
+        }
+    };
+
+    //第一种，在模板里些数据
+    Vue.component('my-div-component',{
+        template:"<span>{{msg}}</span>",
+        data:function(){
+             return {
+                 msg:'hello'
+             }
+        }
+    });
+
+    //第二种传参的用法
+    Vue.component('diy-string',{
+        props:['msg'],
+        template:"<div>{{msg}}</div>"
+    });
+
+    //第三种，属性验证的
+    Vue.component('example',{
+        props:{
+            isnumber:Number,
+            numOrString:[Number,String],
+            mustString:{
+                type:String,
+                required:true
+            },
+            total1:{
+                require:true,
+                type:Number,
+                default:100
+            },
+            total2:{
+                diyValidator:function(val){
+                    return val>10;
+                }
+            }
+        },
+        template:'<span>{{isnumber}}</span>'
+    });
+    Vue.component('button-counter',{
+        template:"<button @click='add'>{{counter}}</button>",
+        data:function(){
+            return {
+                counter:0
+            }
+        },
+        methods:{
+            add:function(){
+                this.counter+=2;
+//                this.$emit('add');
+            }
+        }
+    });
+
+    var vm=new Vue({
+        el:"#app",
+        data:pageData,
+        computed:pageCompued,
+        methods:pageMethod,
+        watch:pageWatch
+    });
+</script>
+</body>
+</html>

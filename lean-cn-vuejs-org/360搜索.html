@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .bg{background-color: #d58512}
+    </style>
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/vue-resource.js"></script>
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="keyword" @keyup="getKeyWord"/>
+    <hr/>
+    <ol>
+        <li v-for="item in searchAry">{{item}}</li>
+    </ol>
+    <p v-show="searchAry.length===0">暂无数据...</p>
+</div>
+<script>
+    var pageData={
+        keyword:"",
+        searchAry:[]
+    };
+    var pageCompued={};
+    var pageWatch={};
+    var pageMethod={
+        //https://sug.so.360.cn/suggest
+        // ?callback=suggest_so&encodein=utf-8&encodeout=utf-8&format=json&fields=word,obdata&word=&fields=word,obdata&word=aaa
+        getKeyWord:function(){
+            this.$http.jsonp('https://sug.so.360.cn/suggest',{
+                word:this.keyword
+            }).then(function(res){
+                this.searchAry=res.data.s;
+            })
+        }
+    };
+
+    var vm=new Vue({
+        el:"#app",
+        data:pageData,
+        computed:pageCompued,
+        methods:pageMethod,
+        watch:pageWatch
+    });
+</script>
+</body>
+</html>

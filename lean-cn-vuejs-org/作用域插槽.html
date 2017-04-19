@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/vue-resource.js"></script>
+</head>
+<body>
+<div id="app">
+    <!--<child-com></child-com>-->
+    <parent-com></parent-com>
+</div>
+<script>
+    var pageData={
+    };
+    var pageCompued={};
+    var pageWatch={};
+    var pageMethod={
+    };
+    //具名slot
+    Vue.component("child-com",{
+        template:[
+            '    <div class="child">',
+            '        <slot text="hello form child"></slot>',
+            '    </div>'].join("")
+    });
+
+    Vue.component('parent-com',{
+        template:[
+            '    <div class="parent">',
+            '        <child-com >',
+            '           <template scope="props" >',
+                '            <p>hello from parent1</p>',
+                '            <p>hello from parent2</p>',
+                '            <p>{{props.text}}</p>',
+            '           </template>',
+            '        </child-com>',
+            '    </div>'].join("")
+
+    });
+
+    var vm=new Vue({
+        el:"#app",
+        data:pageData,
+        computed:pageCompued,
+        methods:pageMethod,
+        watch:pageWatch
+    });
+</script>
+</body>
+</html>

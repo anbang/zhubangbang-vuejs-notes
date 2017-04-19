@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/vue-resource.js"></script>
+</head>
+<body>
+<div id="app">
+    <child-com></child-com>
+    <parent-com></parent-com>
+</div>
+<script>
+    var pageData={
+    };
+    var pageCompued={};
+    var pageWatch={};
+    var pageMethod={
+    };
+    //单个slot
+    Vue.component("child-com",{
+        template:[
+            '<div>',
+            '  <h2>{{msg}}</h2>',
+            '  <slot>',
+            '    只有在没有要分发的内容时才会显示。',
+            '  </slot>',
+            '</div>'].join(""),
+        data:function(){
+            return {
+                msg:'hello'
+            }
+        }
+    });
+
+    Vue.component('parent-com',{
+        template:[
+            '<div>',
+            '  <h1>我是父组件的标题{{age}}</h1>',
+            '  <child-com>',
+            '    <p>这是一些初始内容</p>',
+            '    <p>这是更多的初始内容</p>',
+            '  </child-com>',
+            '</div>'].join(""),
+        data:function(){
+            return {
+                age:18
+            }
+        }
+
+    });
+
+    var vm=new Vue({
+        el:"#app",
+        data:pageData,
+        computed:pageCompued,
+        methods:pageMethod,
+        watch:pageWatch
+    });
+</script>
+</body>
+</html>

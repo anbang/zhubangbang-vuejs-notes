@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/vue-resource.js"></script>
+</head>
+<body>
+<div id="app">
+    <child-com></child-com>
+    <parent-com></parent-com>
+</div>
+<script>
+    var pageData={
+    };
+    var pageCompued={};
+    var pageWatch={};
+    var pageMethod={
+    };
+    //具名slot
+    Vue.component("child-com",{
+        template:[
+            '    <div class="container">',
+            '        <header>',
+            '            <slot name="header"></slot>',
+            '        </header>',
+            '        <main>',
+            '            <slot>this is child</slot>',
+            '        </main>',
+            '        <footer>',
+            '            <slot name="footer"></slot>',
+            '        </footer>',
+            '    </div>'].join(""),
+        data:function(){
+            return {
+                msg:'hello'
+            }
+        }
+    });
+
+    Vue.component('parent-com',{
+        template:[
+            '    <h1>this is parent</h1>',
+            '    <child-com>',
+            '        <h1 $lot="header">this is page header</h1>',
+            '        <p>哈哈哈哈</p>',
+            '        <p>哈哈哈哈</p>',
+            '        <p>哈哈哈哈</p>',
+            '        <p>哈哈哈哈</p>',
+            '        <h1 $lot="footer">this is page footer</h1>',
+            '    </child-com>'].join(""),
+        data:function(){
+            return {
+                age:18
+            }
+        }
+
+    });
+
+    var vm=new Vue({
+        el:"#app",
+        data:pageData,
+        computed:pageCompued,
+        methods:pageMethod,
+        watch:pageWatch
+    });
+</script>
+</body>
+</html>

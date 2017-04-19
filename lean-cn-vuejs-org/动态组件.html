@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/vue.js"></script>
+    <script src="../lib/vue-resource.js"></script>
+</head>
+<body>
+<div id="app">
+    <component :is="currentView"></component>
+</div>
+<script>
+    var pageData={
+        currentView:'home'
+    };
+    var pageCompued={};
+    var pageWatch={};
+    var pageMethod={};
+
+    Vue.component('button-counter',{
+        template:"<button @click='add'>{{counter}}</button>",
+        data:function(){
+            return {counter:0}
+        },
+        methods:{
+            add:function(){
+                this.counter+=2;
+//                this.$emit('add');
+            }
+        }
+    });
+
+    var vm=new Vue({
+        el:"#app",
+        data:pageData,
+        computed:pageCompued,
+        methods:pageMethod,
+        watch:pageWatch
+    });
+</script>
+</body>
+</html>
