@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../lib/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div @click="show2()">
+        <a href="https://www.baidu.com">
+            <input type="button" value="click me" @click.stop.prevent="show($event)">
+        </a>
+    </div>
+    <input type="text" @keydown="showKey($event)">
+</div>
+
+<script>
+    var pageData={
+    };
+
+    var pageMethods={
+        show:function (e) {
+            alert(e.pageX);
+//            e.cancelBubble=true;
+//            e.preventDefault();
+        },
+        show2:function () {
+            alert(2)
+        },
+        showKey:function (e) {
+            alert(e.keyCode);
+        }
+    };
+
+    var vm=new Vue({
+        el:"#app",
+        data:pageData,
+        methods:pageMethods
+    });
+</script>
+</body>
+</html>

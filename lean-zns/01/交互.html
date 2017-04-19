@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../lib/vue.js"></script>
+    <script src="../../lib/vue-resource.js"></script>
+</head>
+<body>
+<div id="app">
+    <h3>vue交互需要引入vue-resourcer</h3>
+    <input type="button" value="Get" @click="get()">
+    <input type="button" value="GetHost" @click="getHost()">
+    <input type="button" value="GetPhp" @click="getPhp()">
+    <hr>
+    <input type="button" value="post" @click="post()">
+    <hr>
+    <input type="button" value="jsonp" @click="jsonp()">
+
+
+
+</div>
+
+<script>
+    var pageData={
+        msg:"this Is msg"
+    };
+
+    var pageMethods={
+        get:function () {
+            this.$http.get('a.txt').then(function (res) {
+//                alert(res.status);
+                alert(res.data);
+            },function (error) {
+                alert("2")
+            })
+        },
+        getHost:function () {
+            this.$http.get('https://raw.githubusercontent.com/racaljk/hosts/master/hosts').then(function (res) {
+                console.log(res.status);
+                console.log(res.data);
+            })
+        },
+        getPhp:function () {
+            this.$http.get('get.php',{
+                a:1,
+                b:2
+            }).then(function (res) {
+                console.log(res)
+            })
+        },
+        post:function () {
+            this.$http.post('get.php',{
+                a:3,
+                b:2
+            },{emulateJSON:true}).then(function (res) {
+                console.log(res)
+            })
+        },
+        jsonp:function () {
+            //https://sug.so.360.cn/suggest?word=
+            /*this.$http.jsonp('https://sug.so.360.cn/suggest',{
+                word:'a'
+            },{emulateJSON:true}).then(function (res) {
+                console.log(res.data.s)
+            })*/
+
+            //https://www.baidu.com/home/msg/data/personalcontent?callback=jQuery110209122255984301082_1492439703040&num=8&_req_seqid=&sid=&_=1492439703041
+            //https://www.baidu.com/s?ie=utf-8&newi=1&mod=1&isbd=1&isid=A0151CA11A238381&wd=%E7%88%B1%E5%A5%87%E8%89%BA&rsv_spt=1&rsv_iqid=0xbc959eb80001cebc&issp=1&f=8&rsv_bp=0&rsv_idx=2&ie=utf-8&tn=baiduhome_pg&rsv_enter=1&rsv_sug3=2&rsv_sug1=2&rsv_sug7=101&rsv_sid=22583_1439_21110_20927&_ss=1&clist=&hsug=&csor=1&pstg=1&_cr1=22937
+            this.$http.jsonp('https://sug.so.360.cn/suggest',{
+                word:'a'
+            },{emulateJSON:true}).then(function (res) {
+                console.log(res.data.s)
+            })
+        }
+    };
+
+    var vm=new Vue({
+        el:"#app",
+        data:pageData,
+        methods:pageMethods
+    });
+</script>
+</body>
+</html>

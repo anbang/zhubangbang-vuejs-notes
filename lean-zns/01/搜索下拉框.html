@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../lib/vue.js"></script>
+    <script src="../../lib/vue-resource.js"></script>
+</head>
+<body>
+<div id="app">
+    <h3>vue交互需要引入vue-resourcer</h3>
+    <input type='text' v-model="searchWord" @keyup="jsonp()">
+    <hr>
+    <ol>
+        <li v-for="item in msg">{{item}}</li>
+    </ol>
+    <p v-show="msg.length==0">no data ...</p>
+
+
+
+</div>
+
+<script>
+    var pageData={
+        msg:[],
+        searchWord:''
+    };
+
+    var pageMethods={
+        jsonp:function () {
+            var self=this;
+            this.$http.jsonp('https://sug.so.360.cn/suggest',{
+                word:self.searchWord
+            },{emulateJSON:true}).then(function (res) {
+                self.msg=res.data.s;
+            })
+        }
+    };
+
+    var vm=new Vue({
+        el:"#app",
+        data:pageData,
+        methods:pageMethods
+    });
+</script>
+</body>
+</html>
