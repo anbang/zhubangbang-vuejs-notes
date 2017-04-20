@@ -3,37 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .selected{background-color: #f3f3f3;}
+    </style>
     <script src="../../lib/vue.js"></script>
     <script src="../../lib/vue-resource.js"></script>
 </head>
 <body>
 <div id="app">
     <h3>vue交互需要引入vue-resourcer</h3>
-    <input type='text' v-model="searchWord" @keyup="jsonp()">
+    <input type='text' v-model="searchWord" @keyup="jsonp($event)" @keyup.down="goDown" @keyup.up="goUp">
     <hr>
     <ol>
-        <li v-for="item in msg">{{item}}</li>
+        <li v-for="item in msg" :class="{selected:$index==now}">{{item}}</li>
     </ol>
     <p v-show="msg.length==0">no data ...</p>
-
-
-
 </div>
 
 <script>
     var pageData={
         msg:[],
+        now:-1,
         searchWord:''
     };
 
     var pageMethods={
-        jsonp:function () {
-            var self=this;
-            this.$http.jsonp('https://sug.so.360.cn/suggest',{
-                word:self.searchWord
-            },{emulateJSON:true}).then(function (res) {
-                self.msg=res.data.s;
+        jsonp:function (e) {
+            console.log(e);
+            if(e.keyCode==38|| e.keyCode==40){return;}
+            if(e.keyCode==13){
+                window.open('https://www.baidu.com/s?wd='+this.searchWord);
+            }
+            //https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su
+            this.$http.jsonp('https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su',{
+                wd:this.searchWord
+            },{
+                emulateJSON:true,
+                jsonp:'cb'
+            }).then(function (res) {
+                this.msg=res.data.s;
             })
+        },
+        goDown:function(){
+            this.now++;
+            if(this.now>this.msg.length-1){
+                this.now=0;
+            }
+            this.searchWord=this.msg[this.now];
+        },
+        goUp:function(){
+            this.now--;
+            if(this.now<0){
+                this.now=this.msg.length-1;
+            }
+            this.searchWord=this.msg[this.now];
         }
     };
 
